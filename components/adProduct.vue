@@ -1,10 +1,10 @@
 <template>
     <aside class="wrapper">
         <h2>Добавление товара</h2>
-        <form class="form" @submit.prevent="addCard">
+        <form class="form">
             <div class="form__item">
                 <label for="prodName" class="form__label required">Наименование товара</label>
-                <input v-model="formData.prodName"
+                <input v-model="prodName"
                     type="text"
                     name="prodName"
                     id="prodName"
@@ -14,7 +14,7 @@
             </div>
             <div class="form__item">
                 <label for="prodDescription" class="form__label">Описание товара</label>
-                <textarea v-model="formData.prodDescription"
+                <textarea v-model="prodDescription"
                 name="prodDescription"
                 id="prodDescription"
                 cols="30"
@@ -24,7 +24,7 @@
             </div>
             <div class="form__item">
                 <label for="prodImgUrl" class="form__label required">Ссылка на изображение товара</label>
-                <input v-model="formData.prodImgUrl"
+                <input v-model="prodImgUrl"
                     type="url"
                     name="prodImgUrl"
                     id="prodImgUrl"
@@ -34,7 +34,7 @@
             </div>
             <div class="form__item">
                 <label for="prodPrice" class="form__label required">Цена товара</label>
-                <input v-model="formData.prodPrice"
+                <input v-model="prodPrice"
                     type="number"
                     name="prodPrice"
                     id="prodPrice"
@@ -42,29 +42,36 @@
                     class="form__input"
                     placeholder="Введите цену">
             </div>
-            <button v-on:click="addCart" type="submit" class="form__btn">Добавить товар</button>
+            <button @click="sendData" type="reset" class="form__btn">Добавить товар</button>
         </form>
     </aside>
 </template>
 
 <script>
+// TODO: сделать очистку формы
 export default {
-  name: 'AddProduct',
+  name: 'adProduct',
+  props:['onSend'],
   data () {
     return {
-      formData: {
         prodName: '',
         prodDescription: '',
         prodImgUrl: '',
         prodPrice: ''
-      }
     }
   },
   methods: {
-    addCard () {
+    sendData () {
+      this.onSend({
+        prodName: this.prodName,
+        prodDescription: this.prodDescription,
+        prodImgUrl: this.prodImgUrl,
+        prodPrice: this.prodPrice
+      })
     }
   }
 }
+
 </script>
 
 <style lang="scss">

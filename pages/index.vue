@@ -1,15 +1,41 @@
 <template>
 <main class="main">
-  <addProduct />
-  <Card />
+  <adProduct :onSend='addToList'/>
+  <Card
+    v-for="(card, index) in cardsData"
+    :key="index"
+    :cardData="card"
+  />
 </main>
 </template>
 
 <script>
+import adProduct from '~/components/adProduct.vue'
 import Card from '~/components/Card.vue'
+
 export default {
-  components: { Card },
-  name: 'IndexPage'
+  name: 'IndexPage',
+  components: {
+    Card,
+    adProduct
+  },
+  data () {
+    return {
+      cardsData: [
+        {
+          prodName: 'hello',
+          prodDescription: '12',
+          prodImgUrl: '23',
+          prodPrice: '34'
+        }
+      ]
+    }
+  },
+  methods: {
+    addToList (data) {
+      this.cardsData.push(data)
+    }
+  }
 }
 </script>
 

@@ -3,17 +3,19 @@
     <div class="delete btn"></div>
     <div class="card__content">
         <img src="@/static/product-img.png" alt="">
-        <h3 class="card__header">Название</h3>
-        <p class="card__description">Описание</p>
-        <p class="card__price">100 p</p>
+        <h3 class="card__header">{{cardData.prodName}}</h3>
+        <p class="card__description">{{cardData.prodDescription}}</p>
+        <p class="card__price">{{cardData.prodPrice}}</p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'CardBlock'
+  name: 'CardBlock',
+  props: ['cardData']
 }
+
 </script>
 
 <style>
