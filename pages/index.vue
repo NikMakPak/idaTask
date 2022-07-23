@@ -1,7 +1,7 @@
 <template>
 <main class="main">
-  <adProduct :onSend='addToList'/>
-  <Card
+  <ad-product @onSend='addToList'/>
+  <card
     v-for="(card, index) in cardsData"
     :key="index"
     :cardData="card"

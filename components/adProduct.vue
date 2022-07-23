@@ -1,7 +1,7 @@
 <template>
     <aside class="wrapper">
         <h2>Добавление товара</h2>
-        <form class="form">
+        <form class="form" @submit.prevent="sendData">
             <div class="form__item">
                 <label for="prodName" class="form__label required">Наименование товара</label>
                 <input v-model="prodName"
@@ -42,7 +42,7 @@
                     class="form__input"
                     placeholder="Введите цену">
             </div>
-            <button @click="sendData" type="reset" class="form__btn">Добавить товар</button>
+            <button type="submit" class="form__btn">Добавить товар</button>
         </form>
     </aside>
 </template>
@@ -51,23 +51,24 @@
 // TODO: сделать очистку формы
 export default {
   name: 'adProduct',
-  props:['onSend'],
+  props: ['onSend'],
   data () {
     return {
-        prodName: '',
-        prodDescription: '',
-        prodImgUrl: '',
-        prodPrice: ''
+      prodName: '',
+      prodDescription: '',
+      prodImgUrl: '',
+      prodPrice: ''
     }
   },
   methods: {
     sendData () {
-      this.onSend({
+      this.$emit('onSend', {
         prodName: this.prodName,
         prodDescription: this.prodDescription,
         prodImgUrl: this.prodImgUrl,
         prodPrice: this.prodPrice
       })
+      this.prodName = this.prodDescription = this.prodImgUrl = this.prodPrice = ''
     }
   }
 }
