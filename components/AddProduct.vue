@@ -1,10 +1,14 @@
 <template>
     <aside class="wrapper">
         <h2>Добавление товара</h2>
-        <form class="form" @submit.prevent="sendData">
+        <ul>
+          <li v-for="(el,i) in notValid"
+          :key="i">{{el}} is not valid</li>
+        </ul>
+        <form class="form" @submit.prevent="sendData" @input="validCheck">
             <div class="form__item">
                 <label for="prodName" class="form__label required">Наименование товара</label>
-                <input v-model="prodName"
+                <input v-model="formData.prodName"
                     type="text"
                     name="prodName"
                     id="prodName"
@@ -14,7 +18,7 @@
             </div>
             <div class="form__item">
                 <label for="prodDescription" class="form__label">Описание товара</label>
-                <textarea v-model="prodDescription"
+                <textarea v-model="formData.prodDescription"
                 name="prodDescription"
                 id="prodDescription"
                 cols="30"
@@ -24,7 +28,7 @@
             </div>
             <div class="form__item">
                 <label for="prodImgUrl" class="form__label required">Ссылка на изображение товара</label>
-                <input v-model="prodImgUrl"
+                <input v-model="formData.prodImgUrl"
                     type="url"
                     name="prodImgUrl"
                     id="prodImgUrl"
@@ -34,15 +38,16 @@
             </div>
             <div class="form__item">
                 <label for="prodPrice" class="form__label required">Цена товара</label>
-                <input v-model="prodPrice"
-                    type="number"
+                <input v-model="formData.prodPrice"
+                    @input="formatPrice"
+                    type="text"
                     name="prodPrice"
                     id="prodPrice"
                     required
                     class="form__input"
                     placeholder="Введите цену">
             </div>
-            <button type="submit" class="form__btn"">Добавить товар</button>
+            <button type="submit" class="form__btn" :disabled="!isFormValid">Добавить товар</button>
         </form>
     </aside>
 </template>
@@ -50,29 +55,65 @@
 <script>
 // TODO: выделить кпоку на компонент. туда перенести js/ сделать валидацию
 export default {
-  name: 'adProduct',
+  name: 'AddProduct',
   props: ['onSend'],
   data () {
     return {
-      formValid: false,
-      prodName: '',
-      prodDescription: '',
-      prodImgUrl: '',
-      prodPrice: 0,
-      id: 0
+      formData: {
+        prodName: '',
+        prodDescription: '',
+        prodImgUrl: '',
+        prodPrice: '',
+        id: ''
+      },
+      isFormValid: false,
+      notValid: []
     }
   },
   methods: {
     sendData () {
       this.$emit('onSend', {
-        prodName: this.prodName,
-        prodDescription: this.prodDescription,
-        prodImgUrl: this.prodImgUrl,
-        prodPrice: parseInt(this.prodPrice),
+        prodName: this.formData.prodName,
+        prodDescription: this.formData.prodDescription,
+        prodImgUrl: this.formData.prodImgUrl,
+        prodPrice: this.formData.prodPrice,
         id: Date.now()
       })
-      this.prodName = this.prodDescription = this.prodImgUrl = ''
-      this.prodPrice = this.id = 0
+      for (const item in this.formData) {
+        this.formData[item] = ''
+      }
+    },
+    validCheck () {
+      this.notValid = []
+      for (const item in this.formData) {
+        if (this.formData[item] === '') {
+          if (item !== 'prodDescription' && item !== 'id') {
+            this.notValid.push(item)
+          }
+        }
+      }
+      if (this.notValid.length === 0) {
+        this.isFormValid = true
+      } else {
+        this.isFormValid = false
+      }
+    },
+    formatPrice () {
+      if (this.formData.prodPrice < 0) {
+        this.formData.prodPrice = 0
+        return
+      }
+      if ((this.formData.prodPrice).replace(' ', '').length > 3) {
+        const price = (this.formData.prodPrice).split('').filter(el => el !== ' ')
+        for (let i = price.length - 1; i >= 0; i--) {
+          if (i % 3 === 0 && i !== price.length - 1) {
+            price.splice(i + 1, 0, ' ')
+          }
+        }
+        this.formData.prodPrice = price.join('')
+      } else {
+        this.formData.prodPrice = (this.formData.prodPrice).replace(' ', '')
+      }
     }
   }
 }
@@ -88,8 +129,5 @@ label.required:after
 }
 input{
     display: block;
-}
-.form__btn{
-
 }
 </style>

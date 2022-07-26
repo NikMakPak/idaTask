@@ -1,6 +1,6 @@
 <template>
 <main class="main">
-  <ad-product @onSend='addToList'/>
+  <Add-product @onSend='addToList'/>
   <transition-group name="list">
     <card
       v-for="(card) in cardsData"
@@ -17,14 +17,14 @@
 </template>
 
 <script>
-import adProduct from '~/components/adProduct.vue'
+import AddProduct from '~/components/AddProduct.vue'
 import Card from '~/components/Card.vue'
 
 export default {
   name: 'IndexPage',
   components: {
     Card,
-    adProduct
+    AddProduct
   },
   data () {
     return {
@@ -33,7 +33,7 @@ export default {
           prodName: 'hello',
           prodDescription: '12',
           prodImgUrl: 'https://avatars.mds.yandex.net/get-images-cbir/369811/6lYUqNpmw5HHtyFFqTpHjw7535/ocr',
-          prodPrice: 34,
+          prodPrice: '34',
           id: Date.now()
         }
       ]
@@ -44,7 +44,6 @@ export default {
       this.cardsData.push(data)
     },
     removeCard (id) {
-      console.log(id)
       this.cardsData = this.cardsData.filter(el => el.id !== id)
     }
   }

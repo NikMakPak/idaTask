@@ -5,7 +5,7 @@
         <img :src="url" alt="">
         <h3 class="card__header">{{title}}</h3>
         <p class="card__description">{{desc}}</p>
-        <p class="card__price">{{price}}</p>
+        <p class="card__price">{{price}} Р</p>
     </div>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
     },
     desc: String,
     price: {
-      type: Number,
+      type: String,
       required: true
     },
     id: Number
