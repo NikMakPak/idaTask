@@ -1,7 +1,11 @@
 <template>
     <aside class="wrapper">
         <h2>Добавление товара</h2>
-        <form class="form" @submit.prevent="addCard">
+        <ul>
+          <li v-for="(el,i) in notValid"
+          :key="i">{{el}} is not valid</li>
+        </ul>
+        <form class="form" @submit.prevent="sendData" @input="validCheck">
             <div class="form__item">
                 <label for="prodName" class="form__label required">Наименование товара</label>
                 <input v-model="formData.prodName"
@@ -35,36 +39,85 @@
             <div class="form__item">
                 <label for="prodPrice" class="form__label required">Цена товара</label>
                 <input v-model="formData.prodPrice"
-                    type="number"
+                    @input="formatPrice"
+                    type="text"
                     name="prodPrice"
                     id="prodPrice"
                     required
                     class="form__input"
                     placeholder="Введите цену">
             </div>
-            <button v-on:click="addCart" type="submit" class="form__btn">Добавить товар</button>
+            <button type="submit" class="form__btn" :disabled="!isFormValid">Добавить товар</button>
         </form>
     </aside>
 </template>
 
 <script>
+// TODO: выделить кпоку на компонент. туда перенести js/ сделать валидацию
 export default {
   name: 'AddProduct',
+  props: ['onSend'],
   data () {
     return {
       formData: {
         prodName: '',
         prodDescription: '',
         prodImgUrl: '',
-        prodPrice: ''
-      }
+        prodPrice: '',
+        id: ''
+      },
+      isFormValid: false,
+      notValid: []
     }
   },
   methods: {
-    addCard () {
+    sendData () {
+      this.$emit('onSend', {
+        prodName: this.formData.prodName,
+        prodDescription: this.formData.prodDescription,
+        prodImgUrl: this.formData.prodImgUrl,
+        prodPrice: this.formData.prodPrice,
+        id: Date.now()
+      })
+      for (const item in this.formData) {
+        this.formData[item] = ''
+      }
+    },
+    validCheck () {
+      this.notValid = []
+      for (const item in this.formData) {
+        if (this.formData[item] === '') {
+          if (item !== 'prodDescription' && item !== 'id') {
+            this.notValid.push(item)
+          }
+        }
+      }
+      if (this.notValid.length === 0) {
+        this.isFormValid = true
+      } else {
+        this.isFormValid = false
+      }
+    },
+    formatPrice () {
+      if (this.formData.prodPrice < 0) {
+        this.formData.prodPrice = 0
+        return
+      }
+      if ((this.formData.prodPrice).replace(' ', '').length > 3) {
+        const price = (this.formData.prodPrice).split('').filter(el => el !== ' ')
+        for (let i = price.length - 1; i >= 0; i--) {
+          if (i % 3 === 0 && i !== price.length - 1) {
+            price.splice(i + 1, 0, ' ')
+          }
+        }
+        this.formData.prodPrice = price.join('')
+      } else {
+        this.formData.prodPrice = (this.formData.prodPrice).replace(' ', '')
+      }
     }
   }
 }
+
 </script>
 
 <style lang="scss">

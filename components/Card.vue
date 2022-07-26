@@ -1,24 +1,40 @@
 <template>
   <div class="card">
-    <div class="delete btn"></div>
+    <button class="delete btn" @click="$emit('remove',id)">Удалить</button>
     <div class="card__content">
-        <img src="@/static/product-img.png" alt="">
-        <h3 class="card__header">Название</h3>
-        <p class="card__description">Описание</p>
-        <p class="card__price">100 p</p>
+        <img :src="url" alt="">
+        <h3 class="card__header">{{title}}</h3>
+        <p class="card__description">{{desc}}</p>
+        <p class="card__price">{{price}} Р</p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'CardBlock'
+  name: 'CardBlock',
+  props: {
+    title: {
+      type: String,
+      required: true
+    },
+    url: {
+      type: String,
+      required: true
+    },
+    desc: String,
+    price: {
+      type: String,
+      required: true
+    },
+    id: Number
+  }
 }
 </script>
 
 <style>
 .card{
-animation: appear 3s;
+animation: appear 1s;
 }
 
 @keyframes appear {

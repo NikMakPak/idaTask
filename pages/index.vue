@@ -1,15 +1,52 @@
 <template>
 <main class="main">
-  <addProduct />
-  <Card />
+  <Add-product @onSend='addToList'/>
+  <transition-group name="list">
+    <card
+      v-for="(card) in cardsData"
+      :key="card.id"
+      :title="card.prodName"
+      :url="card.prodImgUrl"
+      :price="card.prodPrice"
+      :desc="card.prodDescription"
+      :id="card.id"
+      @remove="removeCard"
+    />
+  </transition-group>
 </main>
 </template>
 
 <script>
+import AddProduct from '~/components/AddProduct.vue'
 import Card from '~/components/Card.vue'
+
 export default {
-  components: { Card },
-  name: 'IndexPage'
+  name: 'IndexPage',
+  components: {
+    Card,
+    AddProduct
+  },
+  data () {
+    return {
+      cardsData: [
+        {
+          prodName: 'hello',
+          prodDescription: '12',
+          prodImgUrl: 'https://avatars.mds.yandex.net/get-images-cbir/369811/6lYUqNpmw5HHtyFFqTpHjw7535/ocr',
+          prodPrice: '34',
+          id: Date.now()
+        }
+      ]
+    }
+  },
+  methods: {
+    addToList (data) {
+      this.cardsData.push(data)
+    },
+    removeCard (id) {
+      this.cardsData = this.cardsData.filter(el => el.id !== id)
+    }
+  }
 }
 </script>
 
@@ -23,5 +60,18 @@ export default {
 .main{
   display: flex;
   flex-wrap: wrap;
+}
+.list-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
 }
 </style>
