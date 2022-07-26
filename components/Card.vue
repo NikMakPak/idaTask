@@ -1,11 +1,11 @@
 <template>
   <div class="card">
-    <div class="delete btn"></div>
+    <button class="delete btn" @click="$emit('remove',id)">Удалить</button>
     <div class="card__content">
-        <img src="@/static/product-img.png" alt="">
-        <h3 class="card__header">{{cardData.prodName}}</h3>
-        <p class="card__description">{{cardData.prodDescription}}</p>
-        <p class="card__price">{{cardData.prodPrice}}</p>
+        <img :src="url" alt="">
+        <h3 class="card__header">{{title}}</h3>
+        <p class="card__description">{{desc}}</p>
+        <p class="card__price">{{price}}</p>
     </div>
   </div>
 </template>
@@ -13,14 +13,28 @@
 <script>
 export default {
   name: 'CardBlock',
-  props: ['cardData']
+  props: {
+    title: {
+      type: String,
+      required: true
+    },
+    url: {
+      type: String,
+      required: true
+    },
+    desc: String,
+    price: {
+      type: Number,
+      required: true
+    },
+    id: Number
+  }
 }
-
 </script>
 
 <style>
 .card{
-animation: appear 3s;
+animation: appear 1s;
 }
 
 @keyframes appear {

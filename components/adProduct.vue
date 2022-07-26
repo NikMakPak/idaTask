@@ -42,22 +42,24 @@
                     class="form__input"
                     placeholder="Введите цену">
             </div>
-            <button type="submit" class="form__btn">Добавить товар</button>
+            <button type="submit" class="form__btn"">Добавить товар</button>
         </form>
     </aside>
 </template>
 
 <script>
-// TODO: сделать очистку формы
+// TODO: выделить кпоку на компонент. туда перенести js/ сделать валидацию
 export default {
   name: 'adProduct',
   props: ['onSend'],
   data () {
     return {
+      formValid: false,
       prodName: '',
       prodDescription: '',
       prodImgUrl: '',
-      prodPrice: ''
+      prodPrice: 0,
+      id: 0
     }
   },
   methods: {
@@ -66,9 +68,11 @@ export default {
         prodName: this.prodName,
         prodDescription: this.prodDescription,
         prodImgUrl: this.prodImgUrl,
-        prodPrice: this.prodPrice
+        prodPrice: parseInt(this.prodPrice),
+        id: Date.now()
       })
-      this.prodName = this.prodDescription = this.prodImgUrl = this.prodPrice = ''
+      this.prodName = this.prodDescription = this.prodImgUrl = ''
+      this.prodPrice = this.id = 0
     }
   }
 }
@@ -84,5 +88,8 @@ label.required:after
 }
 input{
     display: block;
+}
+.form__btn{
+
 }
 </style>
