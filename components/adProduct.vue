@@ -42,7 +42,7 @@
                     class="form__input"
                     placeholder="Введите цену">
             </div>
-            <button type="submit" class="form__btn"">Добавить товар</button>
+            <button type="submit" class="form__btn">Добавить товар</button>
         </form>
     </aside>
 </template>
