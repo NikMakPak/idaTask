@@ -104,16 +104,11 @@ export default {
         this.formData.prodPrice = 0
         return
       }
-      if ((this.formData.prodPrice).replace(' ', '').length > 3) {
-        const price = (this.formData.prodPrice).split('').filter(el => el !== ' ')
-        for (let i = price.length - 1; i >= 0; i--) {
-          if (i % 3 === 0 && i !== price.length - 1) {
-            price.splice(i + 1, 0, ' ')
-          }
-        }
-        this.formData.prodPrice = price.join('')
+      if (this.formData.prodPrice.replace(/\s/g, '').length > 3) {
+        const price = parseInt(this.formData.prodPrice.replace(/\s/g, ''))
+        this.formData.prodPrice = price.toLocaleString('ru-RU')
       } else {
-        this.formData.prodPrice = (this.formData.prodPrice).replace(' ', '')
+        this.formData.prodPrice = this.formData.prodPrice.replace(/\s/g, '')
       }
     }
   }
