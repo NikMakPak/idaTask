@@ -30,10 +30,10 @@ export default {
     return {
       cardsData: [
         {
-          prodName: 'hello',
-          prodDescription: '12',
+          prodName: 'Наименование товара',
+          prodDescription: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
           prodImgUrl: 'https://avatars.mds.yandex.net/get-images-cbir/369811/6lYUqNpmw5HHtyFFqTpHjw7535/ocr',
-          prodPrice: '34',
+          prodPrice: '10 000',
           id: Date.now()
         }
       ]
@@ -50,7 +50,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/scss/variables";
 *{
   padding: 0;
@@ -60,6 +60,8 @@ export default {
 .main{
   display: flex;
   flex-wrap: wrap;
+  padding: 32px;
+  gap: 16px;
 }
 .list-item {
   display: inline-block;
