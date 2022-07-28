@@ -59,9 +59,12 @@ export default {
 }
 .main{
   display: flex;
-  flex-wrap: wrap;
   padding: 32px;
   gap: 16px;
+  @media screen and (max-width: 650px) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 .list-item {
   display: inline-block;
@@ -75,5 +78,13 @@ export default {
 .list-leave-to {
   opacity: 0;
   transform: translateY(30px);
+}
+span{
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  @media screen and (max-width: 650px) {
+    justify-content: center;
+  }
 }
 </style>

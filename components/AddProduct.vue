@@ -124,7 +124,7 @@ label.required:after
     font-size: 24px;
 }
 .form{
-  background: #FFFEFB;
+  background: $card-bg;
   box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
   border-radius: 4px;
   padding: 24px;
@@ -146,7 +146,7 @@ h2{
 }
 input, textarea{
   color: #B4B4B4;
-  background: #FFFEFB;
+  background: $card-bg;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   padding: 10px 0 10px 16px;
