@@ -1,6 +1,7 @@
 <template>
 <main class="main">
   <Add-product @onSend='addToList'/>
+  <h3 v-if="cardsData.length == 0">Пусто.. Добавьте товар!</h3>
   <transition-group name="list">
     <card
       v-for="(card) in cardsData"
@@ -55,7 +56,6 @@ export default {
 *{
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
 }
 .main{
   display: flex;

@@ -53,7 +53,6 @@
 </template>
 
 <script>
-// TODO: исправить форматирование цены 1 000
 export default {
   name: 'AddProduct',
   props: ['onSend'],

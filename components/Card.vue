@@ -1,6 +1,6 @@
 <template>
-  <div class="card">
-    <button class="delete btn" @click="$emit('remove',id)"></button>
+  <div class="card" @click="toggleBtnClass">
+    <button ref="delete" class="delete btn" @click="$emit('remove',id)"></button>
         <div class="img__wrap">
           <img :src="url" alt="">
         </div>
@@ -30,17 +30,29 @@ export default {
       required: true
     },
     id: Number
+  },
+  methods: {
+    toggleBtnClass () {
+      this.$refs.delete.classList.toggle('visible')
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/scss/variables";
 .card{
-animation: appear 1s;
+  cursor: pointer;
+  transition: $anim-time - .5s;
+  position: relative;
+animation: appear $anim-time;
 background: #FFFEFB;
 box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
 border-radius: 4px;
 max-width: 332px;
+  &:hover{
+        box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.08), 0px 0px 10px rgba(0, 0, 0, 0.06);
+}
 }
 
 @keyframes appear {
@@ -73,5 +85,17 @@ max-width: 332px;
   margin-top: 16px;
 }
 .delete{
+  display: none;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  background: center no-repeat url("@/assets/img/delete.svg") #FF8484;
+box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+border-radius: 10px;
+width: 32px;
+height: 32px;
+}
+.visible{
+  display: block;
 }
 </style>
