@@ -37,5 +37,5 @@ For detailed explanation on how things work, check out the [documentation](https
 4. ES6
 - _Демонстрация_: 
 Запустите проект на локале
-- _PDF_: 
-?
+- _PNG prewiev_: 
+https://github.com/NikMakPak/idaTask/blob/master/demonstration.png
