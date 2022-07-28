@@ -1,1 +1,39 @@
 @import "./variables.scss";
+*{
+    box-sizing: border-box;
+}
+
+body {
+    @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap');
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    color: #3F3F3F;
+    margin: 0;
+}
+h1,h2,h3,h4,h5,p{
+    margin: 0;
+}
+
+input,textarea{
+    font-family: 'Source Sans Pro';
+    display: block;
+font-weight: 400;
+font-size: $form-input-font;
+line-height: 15px;
+border: none;
+width: 100%;
+}
+
+.btn {
+    font-size: $form-input-font;
+letter-spacing: -0.02em;
+font-family: 'Inter', sans-serif;
+font-weight: 600;
+    transition: $anim-time;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+        opacity: .7;
+    }
+}
